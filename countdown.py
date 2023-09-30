@@ -31,7 +31,7 @@ def get_config(config_path=DEFAULT_CONFIG_PATH):
     return config
 
 
-def cutdown() -> Tuple[int, int, int]:
+def countdown() -> Tuple[int, int, int]:
     """
     获得倒计时
     返回元组含义：日，小时，分钟。
@@ -49,7 +49,7 @@ def cutdown() -> Tuple[int, int, int]:
 
 def generate_wallpaper() -> str:
     """生成壁纸"""
-    time_diff = cutdown()
+    time_diff = countdown()
     image = Image.open(WALLPAPER_PATH)
     font = ImageFont.truetype(FONT_PATH, 300)
     draw = ImageDraw.Draw(image)
@@ -72,7 +72,7 @@ def main() -> int:
         while True:
             image_path = generate_wallpaper()
             change_wallpaper(image_path)
-            f.write("执行成功:" + str(cutdown()) + "\n")
+            f.write("执行成功:" + str(countdown()) + "\n")
             time.sleep(get_config()["update_time"])
             f.flush()
     except Exception as e:
