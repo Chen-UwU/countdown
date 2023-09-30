@@ -7,6 +7,7 @@ from typing import Tuple
 from datetime import datetime
 from PIL import ImageFont, ImageDraw, Image
 
+DEFAULT_CONFIG_PATH = os.getcwd() + "/config/config.json"
 FONT_PATH = os.getcwd() + "/font/AaLingJunTi-2.ttf"
 CACHE_PATH = os.getcwd() + "/cache/image.png"
 WALLPAPER_PATH = os.getcwd() + "/image/image.jpg"
@@ -22,7 +23,7 @@ def get_daily_words():
     """获取每日格言"""
 
 
-def get_config():
+def get_config(config_path=DEFAULT_CONFIG_PATH):
     """获取配置信息"""
     f = open(CONFIG_PATH, "r", encoding="utf-8")
     config = load(f)
@@ -66,16 +67,20 @@ def change_wallpaper(path: str):
 
 
 def main() -> int:
-    f = open(LOG_PATH, "w", encoding="utf-8")
+    f = open(LOG_PATH, "w+", encoding="utf-8")
     try:
         while True:
             image_path = generate_wallpaper()
             change_wallpaper(image_path)
-            f.write("执行成功:" + str(cutdown())+'\n')
+            f.write("执行成功:" + str(cutdown()) + "\n")
             time.sleep(get_config()["update_time"])
+            f.flush()
     except Exception as e:
-        f.write("Bad quit:" + str(e)+'\n')
+        f.write("Bad quit:" + str(e) + "\n")
+        f.flush()
         return 1
+    finally:
+        f.close()
 
 
 if __name__ == "__main__":
