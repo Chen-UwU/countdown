@@ -2,3 +2,4 @@ cutdown.spec
 /build
 /dist
 /cache
+log/latest.log
