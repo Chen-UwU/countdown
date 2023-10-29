@@ -6,7 +6,23 @@
         "hour":0,
         "minute":0
     },
-    "font_name":"AaLingJunTi-2.ttf",
+    "font_style":{
+        "day":{
+            "size":300,
+            "pos":[1180, 520],
+            "fill_color":[237, 28, 36]
+        },
+        "hour":{
+            "size":200,
+            "pos":[960, 1050],
+            "fill_color":[237, 28, 36]
+        },
+        "minute":{
+            "size":200,
+            "pos":[1300, 1050],
+            "fill_color":[237, 28, 36]
+        }
+    },
     "wallpaper_name":"image.jpg",
     "update_time":30
 }

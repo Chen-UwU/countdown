@@ -3,3 +3,4 @@ countdown.spec
 /dist
 /cache
 log/latest.log
+temp.py
