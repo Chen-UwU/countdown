@@ -2,5 +2,6 @@ countdown.spec
 /build
 /dist
 /cache
+/event
 log/latest.log
 temp.py
