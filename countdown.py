@@ -36,14 +36,22 @@ def countdown(date:dict) -> Dict[str, int]:
 
 def generate_wallpaper(time_diff:dict) -> str:
     """生成壁纸"""
-    image = Image.open(WALLPAPER_PATH)
-    draw = ImageDraw.Draw(image)
-    for key, value in time_diff.items():
-        font_style = CONFIG["font_style"][key]
-        print(font_style)
-        font = ImageFont.truetype(FONT_PATH, font_style["size"])
-        draw.text(tuple(font_style["pos"]), str(value), font=font,
-                  fill=tuple(font_style["fill_color"]))
+    if time_diff["day"] < 0:
+        image = Image.open(os.path.join(os.path.abspath(os.path.dirname(__file__)),r"image\bg.png"))
+        draw = ImageDraw.Draw(image)
+        date = datetime.now()
+        text = date.strftime("%Y年%m月%d日")
+        font = ImageFont.truetype(FONT_PATH, 250)
+        draw.text((160,325),text,font=font,fill="#3F87A1",align="center")
+    else:
+        image = Image.open(WALLPAPER_PATH)
+        draw = ImageDraw.Draw(image)
+        for key, value in time_diff.items():
+            font_style = CONFIG["font_style"][key]
+            print(font_style)
+            font = ImageFont.truetype(FONT_PATH, font_style["size"])
+            draw.text(tuple(font_style["pos"]), str(value), font=font,
+                    fill=tuple(font_style["fill_color"]))
     image.save(CACHE_PATH)
     return CACHE_PATH
 
