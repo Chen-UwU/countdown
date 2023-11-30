@@ -5,3 +5,5 @@ countdown.spec
 /event
 log/latest.log
 temp.py
+/countdown.build
+/__pycache__

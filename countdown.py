@@ -2,62 +2,65 @@ import os
 import time
 import ctypes
 
-from json import load
-from typing import Dict
 from datetime import datetime
 from PIL import ImageFont, ImageDraw, Image
 
-DEFAULT_CONFIG_PATH = os.getcwd() + "/config/config.json"
-FONT_PATH = os.getcwd() + "/font/AaLingJunTi-2.ttf"
-CACHE_PATH = os.getcwd() + "/cache/image.png"
-WALLPAPER_PATH = os.getcwd() + "/image/image.jpg"
-LOG_PATH = os.getcwd() + "/log/latest.log"
+from config import CONFIG, DateConfig, FontStyleConfig, get_updated_config 
 
-with open(DEFAULT_CONFIG_PATH, "r", encoding="utf-8") as f:
-    CONFIG = load(f)
-
-
-def countdown(date:dict) -> Dict[str, int]:
+def countdown(date: DateConfig) -> DateConfig:
     """
     获得倒计时
     返回元组含义：日，小时，分钟。
     """
     now = datetime.now()
-    future = datetime(date["year"], date["month"], date["day"],
-                      date["hour"], date["minute"])
+    future = datetime(date.year, date.month, date.day, date.hour, date.minute)
     diff = future - now
     second = int(diff.total_seconds())
     day = second // 86400
     hour = second % 86400 // 3600
     minute = second % 86400 // 60 % 60
     print(day, hour, minute)
-    return {"day":day,"hour":hour,"minute":minute}
+    return DateConfig(
+        **{"year": 0, "month": 0, "day": day, "hour": hour, "minute": minute}
+    )
 
 
-def generate_wallpaper(time_diff:dict) -> str:
+def generate_wallpaper(time_diff: DateConfig) -> str:
     """生成壁纸"""
-    image = Image.open(WALLPAPER_PATH)
+    image = Image.open(CONFIG.image_path)
     draw = ImageDraw.Draw(image)
-    for key, value in time_diff.items():
-        font_style = CONFIG["font_style"][key]
+    for key, value in time_diff.model_dump().items():
+        try:
+            font_style = FontStyleConfig(**CONFIG.style.date_style.model_dump()[key])
+        except KeyError:
+            continue
         print(font_style)
-        font = ImageFont.truetype(FONT_PATH, font_style["size"])
-        draw.text(tuple(font_style["pos"]), str(value), font=font,
-                  fill=tuple(font_style["fill_color"]))
-    image.save(CACHE_PATH)
-    return CACHE_PATH
+        font = ImageFont.truetype(CONFIG.font_path, font_style.size)
+        draw.text(
+            font_style.pos,
+            str(value),
+            font=font,
+            fill=font_style.fill_color,
+            align="center",
+        )
+    image.save(CONFIG.cache_path)
+    return CONFIG.cache_path
 
 
 def change_wallpaper(path: str) -> None:
     """更换壁纸"""
+    if path[0] == ".":  # 如果是相对路径
+        path = os.getcwd() + path[1:]
     ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 3)
 
 
 def main() -> int:
-    f = open(LOG_PATH, "w+", encoding="utf-8")
+    global CONFIG
+    f = open(CONFIG.log_path, "w+", encoding="utf-8")
     try:
         while True:
-            time_diff = countdown(CONFIG["date"])
+            CONFIG = get_updated_config()
+            time_diff = countdown(CONFIG.style.date)
             image_path = generate_wallpaper(time_diff)
             change_wallpaper(image_path)
             f.write("执行成功:" + str(time_diff) + "\n")
