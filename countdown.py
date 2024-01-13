@@ -1,21 +1,42 @@
 import os
 import time
 import ctypes
+import requests
 
-from json import load
+from json import load,loads,dump
 from typing import Dict
 from datetime import datetime
 from PIL import ImageFont, ImageDraw, Image
 
 DEFAULT_CONFIG_PATH = os.getcwd() + "/config/config.json"
-FONT_PATH = os.getcwd() + "/font/AaLingJunTi-2.ttf"
-CACHE_PATH = os.getcwd() + "/cache/image.png"
-WALLPAPER_PATH = os.getcwd() + "/image/image.jpg"
-LOG_PATH = os.getcwd() + "/log/latest.log"
 
 with open(DEFAULT_CONFIG_PATH, "r", encoding="utf-8") as f:
     CONFIG = load(f)
 
+FONT_PATH = os.getcwd() + "/font/AaLingJunTi-2.ttf"
+CACHE_PATH = os.getcwd() + "/cache/image.png"
+WALLPAPER_PATH = os.getcwd() + "/image/" + CONFIG["wallpaper_name"]
+LOG_PATH = os.getcwd() + "/log/latest.log"
+
+def get_word():
+    """
+    获取每日一言
+    注意：请确保 `update_time` 没有取得太小
+    API接口调用超过120/min时会被自动拉黑5min
+    """
+    now = datetime.now()
+    if CONFIG["last"][2] != now.day:
+        CONFIG["last"] = [now.year,now.month,now.day]
+        res = requests.get("https://tenapi.cn/v2/yiyan?format=json",timeout=1000)
+        result = loads(res.content.decode("utf-8"))
+        print(result)
+        if result["msg"] != "success":
+            return None
+        one_word = result["data"]["hitokoto"] + "\n——" + result["data"]["author"]
+        with open(DEFAULT_CONFIG_PATH, "w", encoding="utf-8") as f:
+            dump(CONFIG,f)
+        return one_word
+    return None
 
 def countdown(date:dict) -> Dict[str, int]:
     """
@@ -36,22 +57,19 @@ def countdown(date:dict) -> Dict[str, int]:
 
 def generate_wallpaper(time_diff:dict) -> str:
     """生成壁纸"""
-    if time_diff["day"] < 0:
-        image = Image.open(os.path.join(os.path.abspath(os.path.dirname(__file__)),r"image\bg.png"))
-        draw = ImageDraw.Draw(image)
-        date = datetime.now()
-        text = date.strftime("%Y年%m月%d日")
-        font = ImageFont.truetype(FONT_PATH, 250)
-        draw.text((160,325),text,font=font,fill="#3F87A1",align="center")
-    else:
-        image = Image.open(WALLPAPER_PATH)
-        draw = ImageDraw.Draw(image)
-        for key, value in time_diff.items():
-            font_style = CONFIG["font_style"][key]
-            print(font_style)
-            font = ImageFont.truetype(FONT_PATH, font_style["size"])
-            draw.text(tuple(font_style["pos"]), str(value), font=font,
-                    fill=tuple(font_style["fill_color"]))
+    image = Image.open(WALLPAPER_PATH)
+    draw = ImageDraw.Draw(image)
+    for key, value in time_diff.items():
+        font_style = CONFIG["font_style"][key]
+        print(font_style)
+        font = ImageFont.truetype(FONT_PATH, font_style["size"])
+        draw.text(tuple(font_style["pos"]), str(value), font=font,
+                fill=tuple(font_style["fill_color"]))
+    word = get_word()
+    if word is not None:
+        font = ImageFont.truetype(FONT_PATH, CONFIG["word"]["size"])
+        draw.text(tuple(CONFIG["word"]["pos"]), word, font=font,
+                  fill=tuple(CONFIG["word"]["fill_color"]))
     image.save(CACHE_PATH)
     return CACHE_PATH
 
