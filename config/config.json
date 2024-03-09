@@ -1,30 +1,77 @@
 {
-    "style":{
-        "date":{
-            "year":2024,
-            "month":1,
-            "day":6,
-            "hour":0,
-            "minute":0
-        },
-        "date_style":{
-            "day":{
-                "size":300,
-                "pos":[1250, 520],
-                "fill_color":[237, 28, 36]
-            },
-            "hour":{
-                "size":160,
-                "pos":[1040, 1100],
-                "fill_color":[237, 28, 36]
-            },
-            "minute":{
-                "size":160,
-                "pos":[1390, 1100],
-                "fill_color":[237, 28, 36]
-            }
-        }
+    "update_time": 1.0,
+    "auto_update": true,
+    "plugin_path": "./plugin",
+    "image_path": "./image/高考.png",
+    "cache_path": "./cache/image.png",
+    "font_path": "./font/AaLingJunTi-2.ttf",
+    "log_path": "./logs/latest.log",
+    "date": {
+        "year": 2024,
+        "month": 6,
+        "day": 6,
+        "hour": 0,
+        "minute": 0
     },
-    "wallpaper_name":"image.jpg",
-    "update_time":1
+    "latest_date": {
+        "year": 2024,
+        "month": 3,
+        "day": 9,
+        "hour": 0,
+        "minute": 0
+    },
+    "one_word": "",
+    "words": [
+        ""
+    ],
+    "word_style": {
+        "size": 30,
+        "pos": [
+            425.0,
+            770.0
+        ],
+        "fill_color": [
+            234,
+            72,
+            229
+        ]
+    },
+    "style": {
+        "day": {
+            "size": 150,
+            "pos": [
+                280.0,
+                560.0
+            ],
+            "fill_color": [
+                237,
+                28,
+                36
+            ]
+        },
+        "hour": {
+            "size": 110,
+            "pos": [
+                730.0,
+                560.0
+            ],
+            "fill_color": [
+                237,
+                28,
+                36
+            ]
+        },
+        "minute": {
+            "size": 80,
+            "pos": [
+                1200.0,
+                580.0
+            ],
+            "fill_color": [
+                237,
+                28,
+                36
+            ]
+        }
+    }
 }

@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "countdown"
+version = "1.1"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.5.2"
+pillow = "^10.1.0"
+cn2an = "^0.5.22"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

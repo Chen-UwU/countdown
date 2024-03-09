@@ -1,9 +1,9 @@
-countdown.spec
 /build
 /dist
 /cache
 /event
 log/latest.log
-temp.py
 /countdown.build
 /__pycache__
+/logs/*
+/internal/__pycache__/*
