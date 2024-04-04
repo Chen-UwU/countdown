@@ -1,7 +1,7 @@
 import os
 from json import load
 from pathlib import Path
-from typing import Union, Tuple, List
+from typing import Union, Tuple, List, Literal
 from pydantic import BaseModel
 
 PATH = Path(os.getcwd())
@@ -25,8 +25,7 @@ class FontStyleConfig(BaseModel, extra="ignore"):
 
 class DateStyleConfig(BaseModel, extra="ignore"):
     day: FontStyleConfig
-    hour: FontStyleConfig
-    minute: FontStyleConfig
+    hour_and_minute: FontStyleConfig
 
 
 class Config(BaseModel, extra="ignore"):
@@ -35,31 +34,29 @@ class Config(BaseModel, extra="ignore"):
     update_time: Union[float, int] = 30
     auto_update: bool = True
     plugin_path: str = "./plugin"
-    image_path: str = "./image/高考.png"
+    gaokao_image_path: str = "./image/高考.png"
+    shoukao_image_path: str = "./image/首考.png"
     cache_path: str = "./cache/image.png"
-    font_path: str = "./font/AaLingJunTi-2.ttf"
+    font_path: str = "./font/AaWuHunTi-2.ttf"
     log_path: str = "./logs/latest.log"
-    date: DateConfig = DateConfig()
+    one_word_api: str = "https://tenapi.cn/v2/yiyan?format=json"
+    gaokao_date: DateConfig = DateConfig(day=6, month=6)
+    shoukao_date: DateConfig = DateConfig(day=6, month=1)
     latest_date: DateConfig = DateConfig()
+    now_state: Literal["高考", "首考"] = "高考"
     one_word: str = ""
-    words: List[str] = [""]
+    words: List[str] = ["本地一言库可以自己改哦\n————请遵循格式！"]
     word_style: FontStyleConfig = FontStyleConfig(
-        **{"size": 30, "pos": [425, 770], "fill_color": [234, 72, 229]}
+        **{"size": 60, "pos": [2150, 1850], "fill_color": [234, 72, 114]}
     )
+
     style: DateStyleConfig = DateStyleConfig(
         **{
             "day": FontStyleConfig(
-                **{"size": 150, "pos": [280, 560], "fill_color": [237, 28, 36]}
+                **{"size": 400, "pos": [2000, 1100], "fill_color": [255, 60, 36]}
             ),
-            "hour": FontStyleConfig(
-                **{"size": 110, "pos": [730, 560], "fill_color": [237, 28, 36]}
-            ),
-            "minute": FontStyleConfig(
-                **{
-                    "size": 80,
-                    "pos": [1200, 580],
-                    "fill_color": [237, 28, 36],
-                },
+            "hour_and_minute": FontStyleConfig(
+                **{"size": 200, "pos": [2000, 1400], "fill_color": [153, 153, 153]}
             ),
         }
     )

@@ -11,7 +11,11 @@ python = "^3.11"
 pydantic = "^2.5.2"
 pillow = "^10.1.0"
 cn2an = "^0.5.22"
+requests = "^2.31.0"
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.4"
 
 [build-system]
 requires = ["poetry-core"]

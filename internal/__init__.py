@@ -5,3 +5,4 @@ from .logger import logger as logger
 from .utils import countdown as countdown
 from .utils import get_word as get_word
 from .utils import change_wallpaper as change_wallpaper
+from .utils import check_time as check_time
