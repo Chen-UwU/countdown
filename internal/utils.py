@@ -61,7 +61,7 @@ def change_wallpaper(path: str) -> None:
     """更换壁纸"""
     if path[0] == ".":
         path = os.getcwd() + path[1:]
-    logger.info("更换壁纸中，壁纸位置:%s",path)
+    logger.info("更换壁纸中，壁纸位置:%s", path)
     ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 3)
     logger.info("更换壁纸完成。")
 

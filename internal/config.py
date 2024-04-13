@@ -36,7 +36,7 @@ class Config(BaseModel, extra="ignore"):
     plugin_path: str = "./plugin"
     gaokao_image_path: str = "./image/高考.png"
     shoukao_image_path: str = "./image/首考.png"
-    background_image_path:str = "./image/background.png"
+    background_image_path: str = "./image/background.png"
     cache_path: str = "./cache/image.png"
     font_path: str = "./font/AaWuHunTi-2.ttf"
     log_path: str = "./logs/latest.log"
@@ -48,7 +48,7 @@ class Config(BaseModel, extra="ignore"):
     one_word: str = ""
     words: List[str] = ["本地一言库可以自己改哦\n————请遵循格式！"]
     word_style: FontStyleConfig = FontStyleConfig(
-        **{"size": 60, "pos": [2000,1850], "fill_color": [234, 72, 114]}
+        **{"size": 60, "pos": [2000, 1850], "fill_color": [234, 72, 114]}
     )
 
     style: DateStyleConfig = DateStyleConfig(

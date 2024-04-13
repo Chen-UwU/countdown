@@ -10,6 +10,15 @@ from .utils import get_word
 def centered(
     pos: Tuple[float, float], box: Tuple[int, int, int, int]
 ) -> Tuple[float, float]:
+    """使一个图片的位置转化为居中的位置
+
+    Args:
+        pos (Tuple[float, float]): 想要居中的位置
+        box (Tuple[int, int, int, int]): 图片的box大小
+
+    Returns:
+        Tuple[float, float]: 居中的位置
+    """
     h, w = abs(box[1] - box[3]), abs(box[0] - box[2])
     pos = (pos[0] - w / 2, pos[1] - h / 2)
     return pos
@@ -18,6 +27,7 @@ def centered(
 def generate_wallpaper(time_diff: Dict[str, int]) -> str:
     """生成壁纸"""
     config = get_config()
+
     if config.now_state == "高考":
         image = Image.open(config.gaokao_image_path)
     else:
@@ -27,6 +37,7 @@ def generate_wallpaper(time_diff: Dict[str, int]) -> str:
         an2cn(time_diff["day"]),
         f"{an2cn(time_diff['hour'])}小时{an2cn(time_diff['minute'])}分钟",
     ]
+
     for key, value in zip(config.style.model_dump(), values):
         font_style: FontStyleConfig = FontStyleConfig(**config.style.model_dump()[key])
         logger.debug(str(font_style))
@@ -48,5 +59,13 @@ def generate_wallpaper(time_diff: Dict[str, int]) -> str:
             fill=config.word_style.fill_color,
             align="center",
         )
-    image.save(config.cache_path)
+
+    background = Image.open(config.background_image_path)
+    background = background.resize(image.size)
+    image = image.convert("RGBA")
+    background = background.convert("RGBA")
+    mask = image.split()[3]
+    background.paste(image, (0, 0), mask)
+
+    background.save(config.cache_path)
     return config.cache_path
