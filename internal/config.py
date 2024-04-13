@@ -36,6 +36,7 @@ class Config(BaseModel, extra="ignore"):
     plugin_path: str = "./plugin"
     gaokao_image_path: str = "./image/高考.png"
     shoukao_image_path: str = "./image/首考.png"
+    background_image_path:str = "./image/background.png"
     cache_path: str = "./cache/image.png"
     font_path: str = "./font/AaWuHunTi-2.ttf"
     log_path: str = "./logs/latest.log"
@@ -47,7 +48,7 @@ class Config(BaseModel, extra="ignore"):
     one_word: str = ""
     words: List[str] = ["本地一言库可以自己改哦\n————请遵循格式！"]
     word_style: FontStyleConfig = FontStyleConfig(
-        **{"size": 60, "pos": [2150, 1850], "fill_color": [234, 72, 114]}
+        **{"size": 60, "pos": [2000,1850], "fill_color": [234, 72, 114]}
     )
 
     style: DateStyleConfig = DateStyleConfig(
@@ -71,13 +72,13 @@ class Config(BaseModel, extra="ignore"):
 
 
 def get_config() -> Config:
-    with open(CONFIG_PATH, "r+", encoding="utf-8") as f:
-        return Config(**load(f))
+    with open(CONFIG_PATH, "r+", encoding="utf-8") as file:
+        return Config(**load(file))
 
 
 def update_config(new_config: Config) -> None:
-    with open(CONFIG_PATH, "w+", encoding="utf-8") as f:
-        f.write(str(new_config.model_dump_json(indent=4)))
+    with open(CONFIG_PATH, "w+", encoding="utf-8") as file:
+        file.write(str(new_config.model_dump_json(indent=4)))
 
 
 if not os.path.exists(CONFIG_PATH.parent):

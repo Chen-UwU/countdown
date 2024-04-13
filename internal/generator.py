@@ -1,5 +1,5 @@
-from PIL import ImageFont, ImageDraw, Image
 from typing import Dict, Tuple
+from PIL import ImageFont, ImageDraw, Image
 from cn2an import an2cn
 
 from .config import get_config, FontStyleConfig
@@ -42,7 +42,7 @@ def generate_wallpaper(time_diff: Dict[str, int]) -> str:
     if word is not None:
         font = ImageFont.truetype(config.font_path, config.word_style.size)
         draw.text(
-            centered(config.word_style.pos, font.getbbox(word)),
+            centered(config.word_style.pos, font.getbbox(word.splitlines()[0])),
             word,
             font=font,
             fill=config.word_style.fill_color,

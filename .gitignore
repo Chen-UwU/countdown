@@ -7,3 +7,4 @@ log/latest.log
 /__pycache__
 /logs/*
 /internal/__pycache__/*
+font/AdobeFnt24.lst

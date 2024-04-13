@@ -20,7 +20,7 @@ def main() -> None:
                 time_diff = countdown(config.gaokao_date)
             image_path = generate_wallpaper(time_diff)
             change_wallpaper(image_path)
-            logger.info("执行成功:" + str(time_diff) + "\n")
+            logger.info("执行成功:%s", time_diff)
             time.sleep(config.update_time)
     except KeyboardInterrupt:
         logger.info("keyboard exit")
