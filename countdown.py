@@ -23,7 +23,9 @@ def main() -> None:
             logger.info("执行成功:%s", time_diff)
             time.sleep(config.update_time)
     except KeyboardInterrupt:
-        logger.info("keyboard exit")
+        logger.warning("keyboard exit")
+    except Exception as e:
+        logger.error("发生崩溃，崩溃原因：%s",e)
 
 
 if __name__ == "__main__":

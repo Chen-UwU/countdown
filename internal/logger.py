@@ -18,16 +18,16 @@ if not os.path.exists(log_path):
     f = open(log_path, "x", encoding="utf-8")
     f.close()
 file_handler = logging.handlers.TimedRotatingFileHandler(
-    filename=config.log_path, when="midnight", interval=1, backupCount=7
+    filename=config.log_path, when="midnight", interval=1, backupCount=7,encoding='utf-8'
 )
 
 logger.setLevel(logging.DEBUG)
 
 stream_handler.setLevel(logging.DEBUG)
-file_handler.setLevel(logging.WARNING)
+file_handler.setLevel(logging.DEBUG)
 
 stream_format_pattern = logging.Formatter(
-    fmt="%(asctime)s|%(levelname)s|%(name)s|%(filename)s:%(lineno)d|%(message)s",
+    fmt="%(asctime)s|%(levelname)s|%(filename)s:%(lineno)d|%(message)s",
     datefmt="%Y/%m/%d %H:%M:%S",
 )
 

@@ -40,7 +40,7 @@ def generate_wallpaper(time_diff: Dict[str, int]) -> str:
 
     for key, value in zip(config.style.model_dump(), values):
         font_style: FontStyleConfig = FontStyleConfig(**config.style.model_dump()[key])
-        logger.debug(str(font_style))
+        logger.debug("对%s的字体风格:%s",key,str(font_style))
         font = ImageFont.truetype(config.font_path, font_style.size)
         draw.text(
             centered(font_style.pos, font.getbbox(value)),

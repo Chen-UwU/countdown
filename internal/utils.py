@@ -51,7 +51,7 @@ def get_word():
             one_word = random.choice(config.words)
         config.one_word = one_word
         update_config(config)
-        logger.info("新每日一言已生成：%s", one_word)
+        logger.info("新每日一言已生成：%s", repr(one_word))
         return one_word
     else:
         return config.one_word
