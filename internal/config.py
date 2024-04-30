@@ -12,7 +12,7 @@ CONFIG_PATH = PATH / "config" / "config.json"
 class DateConfig(BaseModel, extra="ignore"):
     year: int = 2024
     month: int = 6
-    day: int = 6
+    day: int = 7
     hour: int = 0
     minute: int = 0
 
