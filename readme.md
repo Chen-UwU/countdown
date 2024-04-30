@@ -21,6 +21,11 @@ poetry install
 ```
 如果你不知道什么是poetry，这里是[poetry官方文档](https://python-poetry.org/docs/)
 
+👉本项目也支持使用pip进行依赖安装！
+```cmd
+pip install -r requirements.txt
+```
+
 ## 📃计划更新
 
 - [x] 设置文件
