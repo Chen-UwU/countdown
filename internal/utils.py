@@ -23,7 +23,7 @@ def countdown(date: DateConfig) -> Dict[str, int]:
     day = second // 86400
     hour = second % 86400 // 3600
     minute = second % 86400 // 60 % 60
-    logger.debug("倒计时天数:%s", str([day, hour, minute]))
+    logger.debug(f"倒计时天数:{str([day, hour, minute])}")
     return {"day": day, "hour": hour, "minute": minute}
 
 
@@ -51,7 +51,7 @@ def get_word():
             one_word = random.choice(config.words)
         config.one_word = one_word
         update_config(config)
-        logger.info("新每日一言已生成：%s", repr(one_word))
+        logger.info(f"新每日一言已生成：{repr(one_word)}")
         return one_word
     else:
         return config.one_word
@@ -61,7 +61,7 @@ def change_wallpaper(path: str) -> None:
     """更换壁纸"""
     if path[0] == ".":
         path = os.getcwd() + path[1:]
-    logger.info("更换壁纸中，壁纸位置:%s", path)
+    logger.info(f"更换壁纸中，壁纸位置:{path}")
     ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 3)
     logger.info("更换壁纸完成。")
 
