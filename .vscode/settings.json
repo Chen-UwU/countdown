@@ -4,6 +4,7 @@
         "gaokao",
         "hitokoto",
         "loguru",
+        "pyinstaller",
         "shoukao"
     ]
 }
