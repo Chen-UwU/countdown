@@ -1,17 +1,19 @@
 [tool.poetry]
 name = "countdown"
-version = "1.1"
+version = "1.6.1"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["ChenXu <Woyerpa@outlook.com>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.12,<3.13"
 pydantic = "^2.5.2"
 pillow = "^10.1.0"
 cn2an = "^0.5.22"
 requests = "^2.31.0"
+loguru = "^0.7.2"
+pyinstaller = "^6.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
