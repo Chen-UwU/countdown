@@ -6,12 +6,14 @@ from internal import (
     logger,
     change_wallpaper,
     check_time,
+    open_info
 )
 
 
 def main() -> None:
     try:
         check_time()
+        open_info()
         while True:
             config = get_config()
             if config.now_state == "首考":

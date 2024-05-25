@@ -87,3 +87,17 @@ def check_time() -> None:
     if config == get_config():
         update_config(config)
 
+def open_info() -> None:
+    """给出info并打开文件
+
+    此函数为不知情的用户设计。因为还没有开发出UI，所以使用os.system调用系统软件来打开txt文件夹作为info
+
+    """
+    config = get_config()
+    seed = (datetime.now() - datetime(2006, 6, 2)).days
+    random.seed(seed)
+    
+    if  not os.path.exists(config.info_file):
+        return
+    if random.randint(0,30) == 1: # 不是每一天都得开（虽然随机开有点智障）
+        os.system("start " + config.info_file)
