@@ -6,13 +6,15 @@ from internal import (
     logger,
     change_wallpaper,
     check_time,
-    open_info
+    open_info,
+    open_info2
 )
 
 
 def main() -> None:
     try:
         check_time()
+        breakpoint()
         open_info()
         while True:
             config = get_config()
@@ -28,6 +30,7 @@ def main() -> None:
         logger.warning("keyboard exit")
     except Exception as e:
         logger.error(f"发生崩溃，崩溃原因：{e}")
+        open_info2()
         raise e
 
 

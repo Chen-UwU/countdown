@@ -7,3 +7,4 @@ from .utils import get_word as get_word
 from .utils import change_wallpaper as change_wallpaper
 from .utils import check_time as check_time
 from .utils import open_info as open_info
+from .utils import open_info2 as open_info2

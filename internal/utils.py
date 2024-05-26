@@ -101,3 +101,6 @@ def open_info() -> None:
         return
     if random.randint(0,30) == 1: # 不是每一天都得开（虽然随机开有点智障）
         os.system("start " + config.info_file)
+        
+def open_info2() -> None:
+    os.system("start ./file/bad_info.txt")
