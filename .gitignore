@@ -9,3 +9,4 @@ log/latest.log
 /internal/__pycache__/*
 font/AdobeFnt24.lst
 /venv
+file/info.txt
