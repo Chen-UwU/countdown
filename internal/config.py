@@ -32,6 +32,7 @@ class Config(BaseModel, extra="ignore"):
     """基础配置类，提供基础的配置"""
 
     update_time: Union[float, int] = 30
+    info_file: str = "./file/info.txt"
     auto_update: bool = True
     plugin_path: str = "./plugin"
     gaokao_image_path: str = "./image/高考.png"

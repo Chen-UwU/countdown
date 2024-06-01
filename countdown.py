@@ -6,13 +6,21 @@ from internal import (
     logger,
     change_wallpaper,
     check_time,
+    open_info,
+    open_info2
 )
 
 
 def main() -> None:
     try:
+        check_time()
+        breakpoint()
+        open_info()
         while True:
+<<<<<<< HEAD
             check_time()
+=======
+>>>>>>> ebacc110f66808504b181bb1bd153a0bc6da4749
             config = get_config()
             if config.now_state == "首考":
                 time_diff = countdown(config.shoukao_date)
@@ -20,12 +28,14 @@ def main() -> None:
                 time_diff = countdown(config.gaokao_date)
             image_path = generate_wallpaper(time_diff)
             change_wallpaper(image_path)
-            logger.info("执行成功:%s", time_diff)
+            logger.info(f"执行成功:{time_diff}")
             time.sleep(config.update_time)
     except KeyboardInterrupt:
         logger.warning("keyboard exit")
     except Exception as e:
-        logger.error("发生崩溃，崩溃原因：%s",e)
+        logger.error(f"发生崩溃，崩溃原因：{e}")
+        open_info2()
+        raise e
 
 
 if __name__ == "__main__":
