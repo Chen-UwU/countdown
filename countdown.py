@@ -12,8 +12,8 @@ from internal import (
 def main() -> None:
     try:
         while True:
-            config = get_config()
             check_time()
+            config = get_config()
             if config.now_state == "首考":
                 time_diff = countdown(config.shoukao_date)
             else:

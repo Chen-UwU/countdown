@@ -67,15 +67,15 @@ def change_wallpaper(path: str) -> None:
 
 
 def check_time() -> None:
-    """时间检查器，拥有极其厉害的逻辑，建议大改。。。。。屎山就是这样练成的。"""
+    """时间检查器，可以证明，若在每个阶段都开启过程序，或程序多次更换壁纸后，最终时间始终为正"""
     now = datetime.now()
     config = get_config()
     if config.now_state == "首考":
         if datetime(**config.shoukao_date.model_dump()) < now:
-            config.gaokao_date.year = now.year
+            config.shoukao_date.year += 1
             config.now_state = "高考"
     else:
         if datetime(**config.gaokao_date.model_dump()) < now:
-            config.shoukao_date.year = now.year + 1
+            config.gaokao_date.year +=1
             config.now_state = "首考"
     update_config(config)
