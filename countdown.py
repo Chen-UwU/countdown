@@ -14,7 +14,6 @@ from internal import (
 def main() -> None:
     try:
         check_time()
-        breakpoint()
         open_info()
         while True:
             config = get_config()
