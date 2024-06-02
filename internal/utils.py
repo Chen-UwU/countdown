@@ -67,37 +67,21 @@ def change_wallpaper(path: str) -> None:
 
 
 def check_time() -> None:
-<<<<<<< HEAD
     """时间检查器，可以证明，若在每个阶段都开启过程序，或程序多次更换壁纸后，最终时间始终为正"""
+    """回溯代码逻辑到 970dd40 前的更改。"""
     now = datetime.now()
     config = get_config()
     if config.now_state == "首考":
         if datetime(**config.shoukao_date.model_dump()) < now:
+            config.gaokao_date.year = now.year
             config.shoukao_date.year += 1
             config.now_state = "高考"
     else:
         if datetime(**config.gaokao_date.model_dump()) < now:
+            config.shoukao_date.year = now.year + 1
             config.gaokao_date.year +=1
             config.now_state = "首考"
-    update_config(config)
-=======
-    """时间检查器，检查时间是高考还是首考。"""
-    now = datetime.now()
-    config = get_config()
-    gaokao_time = datetime(now.year, config.gaokao_date.month, config.gaokao_date.day)
-    shoukao_time = (
-        datetime(now.year + 1, config.shoukao_date.month, config.shoukao_date.day)
-        if now <= datetime(now.year, 12, 31)
-        else datetime(now.year, config.shoukao_date.month, config.shoukao_date.day)
-    )
-
-    if now < shoukao_time:
-        config.now_state = "首考"
-        config.gaokao_date.year = shoukao_time.year
-    elif now < gaokao_time:
-        config.now_state = "高考"
-        config.gaokao_date.year = gaokao_time.year
-
+            
     if config == get_config():
         update_config(config)
 
@@ -118,4 +102,3 @@ def open_info() -> None:
         
 def open_info2() -> None:
     os.system("start ./file/bad_info.txt")
->>>>>>> ebacc110f66808504b181bb1bd153a0bc6da4749
