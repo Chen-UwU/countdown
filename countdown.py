@@ -16,10 +16,6 @@ def main() -> None:
         check_time()
         open_info()
         while True:
-<<<<<<< HEAD
-            check_time()
-=======
->>>>>>> ebacc110f66808504b181bb1bd153a0bc6da4749
             config = get_config()
             if config.now_state == "首考":
                 time_diff = countdown(config.shoukao_date)
