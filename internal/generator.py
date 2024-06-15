@@ -76,9 +76,5 @@ def generate_wallpaper(time_diff: Dict[str, int]) -> str:
     if not os.path.exists(cache_path.parent):
         os.makedirs(cache_path.parent)
 
-    # 暂时写死了路径，没有找到合适的解决办法，cache_path指向的居然是文件。。。
-    if not os.path.exists("./cache"):
-        os.mkdir("./cache")
-
     background.save(config.cache_path)
     return config.cache_path
