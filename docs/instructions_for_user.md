@@ -6,26 +6,26 @@
 
 ### 第一步
 
-下载release中最新的压缩包。
+下载 release 中最新的压缩包。
 
 ### 第二步
 
 将压缩包解压到你想要解压的目录下面。
-~ps：最好不要放在桌面和C盘中\~~
+~ps：最好不要放在桌面和 C 盘中、~~
 
 ### 第三步
 
-打开解压出来的文件夹，找到countdown.exe，可以先运行看看是不是正常的，然后右键生成快捷方式。
+打开解压出来的文件夹，找到 countdown.exe，可以先运行看看是不是正常的，然后右键生成快捷方式。
 
 ### 第四步
 
-将快捷方式放入Windows开机自启动的文件夹中。
+将快捷方式放入 Windows 开机自启动的文件夹中。
 
-*ps：Windows开机自启动文件夹的目录一般是这样的：*
+*ps：Windows 开机自启动文件夹的目录一般是这样的：*
 ```
 C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 ```
-*其中Administrator要换成你自己的用户名，比如你的用户名是Genshin，那么你的目录就应该是：*
+*其中 Administrator 要换成你自己的用户名，比如你的用户名是 Genshin，那么你的目录就应该是：*
 ```
 C:\Users\Genshin\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 ```
@@ -36,7 +36,7 @@ C:\Users\Genshin\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 
 ## 配置
 
-这个软件提供了丰富的配置项，你可以在你放置软件的目录下面找到config文件夹，打开里面的config.json自己修改一些配置项。
+这个软件提供了丰富的配置项，你可以在你放置软件的目录下面找到 config 文件夹，打开里面的 config.json 自己修改一些配置项。
 
 __注意：一旦修改错误将使程序无法启动！并且某些配置项不应该被修改！请确保你知道你在修改什么！以避免修改错误导致程序不能启动！__
 
@@ -53,17 +53,12 @@ __注意：一旦修改错误将使程序无法启动！并且某些配置项不
 |7|`cache_path`|字符串描述的目录|缓存的图片位置|
 |8|`font_path`|字符串描述的目录|字体的位置|
 |9|`log_path`|字符串描述的目录|日志文件保存的位置|
-|10|`one_word_api`|字符串描述的网址|每日一言的Api网站（注意，返回必须是json格式的，并且没有做优化，有可能不支持）|
-|11|`gaokao_date`|类似字典的值键映射|高考的日期，分别按字面意思为年月日时分。这是一个示例:```"gaokao_date": {"year": 2024,"month": 6,"day": 7,"hour": 0,"minute": 0}``` __除非你知道你在干什么，否则不要轻易修改！__|
+|10|`one_word_api`|字符串描述的网址|每日一言的 Api 网站（注意，返回必须是 json 格式的，并且没有做优化，有可能不支持）|
+|11|`gaokao_date`|类似字典的值键映射|高考的日期，分别按字面意思为年月日时分。这是一个示例：```"gaokao_date": {"year": 2024,"month": 6,"day": 7,"hour": 0,"minute": 0}``` __除非你知道你在干什么，否则不要轻易修改！__|
 |12|`shoukao_date`|类似字典的值键映射|首考的日期，示例同上。__除非你知道你在干什么，否则不要轻易修改！__|
 |13|`latest_date`|类似字典的值键映射|上次启动程序的的日期，示例同上。__除非你知道你在干什么，否则不要轻易修改！__|
 |14|`now_state`|`高考`或`首考`|上次启动时候的时间状态，__除非你知道你在干什么，否则不要修改！__|
 |15|`one_word`|字符串组成的一句话|展示出来的一言|
 |16|`words`|很多个字符串组成的一句话构成的列表|本地一言储存库，网络不佳时将从中获取一言|
-|17|`word_style`|字典一样的值键对|一言的渲染风格，不做过多介绍。（size为大小，pos为位置，fill_color为填充颜色）|
-|18|`style`|字典一样的值键对|倒计时的渲染风格，不做过多介绍。（size为大小，pos为位置，fill_color为填充颜色）|
-
-
-
-
-
+|17|`word_style`|字典一样的值键对|一言的渲染风格，不做过多介绍。（size 为大小，pos 为位置，fill_color 为填充颜色）|
+|18|`style`|字典一样的值键对|倒计时的渲染风格，不做过多介绍。（size 为大小，pos 为位置，fill_color 为填充颜色）|
