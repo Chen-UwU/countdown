@@ -23,7 +23,7 @@ def countdown(date: DateConfig) -> Dict[str, int]:
     day = second // 86400
     hour = second % 86400 // 3600
     minute = second % 86400 // 60 % 60
-    logger.debug("倒计时天数:%s", str([day, hour, minute]))
+    logger.debug(f"倒计时天数:{str([day, hour, minute])}")
     return {"day": day, "hour": hour, "minute": minute}
 
 
@@ -51,7 +51,7 @@ def get_word():
             one_word = random.choice(config.words)
         config.one_word = one_word
         update_config(config)
-        logger.info("新每日一言已生成：%s", repr(one_word))
+        logger.info(f"新每日一言已生成：{repr(one_word)}")
         return one_word
     else:
         return config.one_word
@@ -61,21 +61,44 @@ def change_wallpaper(path: str) -> None:
     """更换壁纸"""
     if path[0] == ".":
         path = os.getcwd() + path[1:]
-    logger.info("更换壁纸中，壁纸位置:%s", path)
+    logger.info(f"更换壁纸中，壁纸位置:{path}")
     ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 3)
     logger.info("更换壁纸完成。")
 
 
 def check_time() -> None:
-    """时间检查器，拥有极其厉害的逻辑，建议大改。。。。。屎山就是这样练成的。"""
+    """时间检查器，可以证明，若在每个阶段都开启过程序，或程序多次更换壁纸后，最终时间始终为正"""
+    """回溯代码逻辑到 970dd40 前的更改。"""
     now = datetime.now()
     config = get_config()
     if config.now_state == "首考":
         if datetime(**config.shoukao_date.model_dump()) < now:
             config.gaokao_date.year = now.year
+            config.shoukao_date.year += 1
             config.now_state = "高考"
     else:
         if datetime(**config.gaokao_date.model_dump()) < now:
             config.shoukao_date.year = now.year + 1
+            config.gaokao_date.year +=1
             config.now_state = "首考"
-    update_config(config)
+            
+    if config == get_config():
+        update_config(config)
+
+def open_info() -> None:
+    """给出info并打开文件
+
+    此函数为不知情的用户设计。因为还没有开发出UI，所以使用os.system调用系统软件来打开txt文件夹作为info
+
+    """
+    config = get_config()
+    seed = (datetime.now() - datetime(2006, 6, 2)).days
+    random.seed(seed)
+    
+    if  not os.path.exists(config.info_file):
+        return
+    if random.randint(0,30) == 1: # 不是每一天都得开（虽然随机开有点智障）
+        os.system("start " + config.info_file)
+        
+def open_info2() -> None:
+    os.system("start ./file/bad_info.txt")

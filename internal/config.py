@@ -32,6 +32,7 @@ class Config(BaseModel, extra="ignore"):
     """基础配置类，提供基础的配置"""
 
     update_time: Union[float, int] = 30
+    info_file: str = "./file/info.txt"
     auto_update: bool = True
     plugin_path: str = "./plugin"
     gaokao_image_path: str = "./image/高考.png"
@@ -41,7 +42,7 @@ class Config(BaseModel, extra="ignore"):
     font_path: str = "./font/AaWuHunTi-2.ttf"
     log_path: str = "./logs/latest.log"
     one_word_api: str = "https://tenapi.cn/v2/yiyan?format=json"
-    gaokao_date: DateConfig = DateConfig(day=6, month=6)
+    gaokao_date: DateConfig = DateConfig(day=7, month=6)
     shoukao_date: DateConfig = DateConfig(day=6, month=1)
     latest_date: DateConfig = DateConfig()
     now_state: Literal["高考", "首考"] = "高考"

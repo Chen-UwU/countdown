@@ -1,3 +1,6 @@
+import os
+
+from pathlib import Path
 from typing import Dict, Tuple
 from PIL import ImageFont, ImageDraw, Image
 from cn2an import an2cn
@@ -5,6 +8,8 @@ from cn2an import an2cn
 from .config import get_config, FontStyleConfig
 from .logger import logger
 from .utils import get_word
+
+import os
 
 
 def centered(
@@ -40,7 +45,7 @@ def generate_wallpaper(time_diff: Dict[str, int]) -> str:
 
     for key, value in zip(config.style.model_dump(), values):
         font_style: FontStyleConfig = FontStyleConfig(**config.style.model_dump()[key])
-        logger.debug("对%s的字体风格:%s",key,str(font_style))
+        logger.debug(f"对{key}的字体风格:{str(font_style)}")
         font = ImageFont.truetype(config.font_path, font_style.size)
         draw.text(
             centered(font_style.pos, font.getbbox(value)),
@@ -66,6 +71,14 @@ def generate_wallpaper(time_diff: Dict[str, int]) -> str:
     background = background.convert("RGBA")
     mask = image.split()[3]
     background.paste(image, (0, 0), mask)
+    
+    cache_path = Path(config.cache_path)
+    if not os.path.exists(cache_path.parent):
+        os.makedirs(cache_path.parent)
+
+    # 暂时写死了路径，没有找到合适的解决办法，cache_path指向的居然是文件。。。
+    if not os.path.exists("./cache"):
+        os.mkdir("./cache")
 
     background.save(config.cache_path)
     return config.cache_path
