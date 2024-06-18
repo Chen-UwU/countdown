@@ -82,7 +82,7 @@ def check_time() -> None:
             config.gaokao_date.year +=1
             config.now_state = "首考"
             
-    if config == get_config():
+    if config != get_config():
         update_config(config)
 
 def open_info() -> None:
@@ -95,7 +95,7 @@ def open_info() -> None:
     seed = (datetime.now() - datetime(2006, 6, 2)).days
     random.seed(seed)
     
-    if  not os.path.exists(config.info_file):
+    if not os.path.exists(config.info_file):
         return
     if random.randint(0,30) == 1: # 不是每一天都得开（虽然随机开有点智障）
         os.system("start " + config.info_file)
